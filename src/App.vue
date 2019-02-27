@@ -52,7 +52,7 @@
             <h2>ИСТОРИИ</h2>
             <section>
                 <div class="blockVideo">
-                    <div v-for="v in [0, 1]" :id="'div'+v" class="iframe">
+                    <div v-for="v in [0, 1]" :id="'div'+v" class="iframe" :style="position[v]">
                         <div>
                             <iframe :src="videosData[v].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             <hr>
@@ -88,7 +88,11 @@
                     videosData: videos,
                     id: [0, 1],
                     pShow: false,
-                    firstTime: true
+                    firstTime: true,
+                    position: [
+                        {right: '0%'},
+                        {right: '0%'}
+                    ]
                 }
             },
             methods: {
@@ -101,16 +105,6 @@
                     } else {
                         return 'Читать больше';
                     }
-                },
-                moveVideo(obj) {
-                    // while (moved < limit) {
-                    //     setTimeout(() => {
-                    //         obj.style.right = '5%';
-                    //         moved += 5;
-                    //         console.log(moved);
-                    //     }, 50);
-                    // }
-                    document.querySelector(obj).style.right = '50%';
                 },
                 changeLeftVideoPosition() {
                     
@@ -143,30 +137,48 @@
                     };
                 },
                 moveLeftVideoToLeft2() {
-                    var div0 = document.querySelector('#div0');
                     var i = 0;
-                    var coordinate = Number.parseInt(div0.style.right);
-                    if (isNaN(coordinate)) {
-                        coordinate = 0;
-                    }
                     var timer = setInterval(move.bind(this), 10);
                     function move() {
-                        div0.style.right = coordinate + '%';
-                        if (i == 20) {
+                        console.log(i, this.position[0].right);
+                        
+                        i++;
+                        this.position[0].right = (Number.parseFloat(this.position[0].right) + 1.25) + '%';
+                        if (i == 19) {
                             clearInterval(timer);
-                            console.log(this.firstTime);
-                            
-                            if (this.firstTime == true) {
-                                console.log(Number.parseInt(div0.style.right), coordinate);
-                                div0.style.right -= 150 + '%';
-                                console.log(Number.parseInt(div0.style.right), coordinate);
+                            console.log(this.firstTime);                            
+                            if (this.firstTime) {
+                                this.position[0].right = -100 + '%';
+                                this.firstTime = false;
+                            } else {
+                                this.position[0].right = -50 + '%';
+                                this.firstTime = true;
                             }
-                        } else {
-                            i++;
-                            coordinate += 2.5;
-                            console.log(coordinate);
                         }
                     };
+                    // var coordinate = Number.parseInt(div0.style.right);
+                    // if (isNaN(coordinate)) {
+                    //     coordinate = 0;
+                    // }
+                    // var timer = setInterval(move.bind(this), 10);
+                    // function move() {
+                    //     div0.style.right = coordinate + '%';
+                    //     if (i == 20) {
+                    //         clearInterval(timer);
+                    //         console.log(this.firstTime);
+                            
+                    //         if (this.firstTime == true) {
+                    //             console.log(Number.parseInt(div0.style.right), coordinate);
+                    //             div0.style.right -= 150 + '%';
+                    //             console.log(Number.parseInt(div0.style.right), coordinate);
+                    //         }
+                    //     } else {
+                    //         i++;
+                    //         coordinate += 2.5;
+                    //         console.log(coordinate);
+                    //     }
+                    // };
+                    // this.position[0].right = -20 + '%';
                 },
                 moveRightVideoToRight() {
 
@@ -186,8 +198,8 @@
                 },
                 nextVideo() {
                     this.moveLeftVideoToLeft2();
-                    // setTimeout(this.moveLeftVideoToLeft2.bind(this), 500);
-                    this.moveRightVideoToLeft();
+                    // setTimeout(this.moveLeftVideoToLeft2.bind(this), 550);
+                    // this.moveRightVideoToLeft();
                 },
                 prevVideo() {
                     this.moveRightVideoToRight();
