@@ -52,19 +52,19 @@
             <h2>ИСТОРИИ</h2>
             <section>
                 <div class="blockVideo">
-                    <div v-for="v in [0, 1]" :id="'div'+v" class="iframe" :style="position[v]">
+                    <div v-for="v in loopId" :id="'div'+v.pourId" class="iframe" :style="position[v.pourId]">
                         <div>
-                            <iframe :src="videosData[v].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe :src="videosData[v.sourceId].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             <hr>
-                            <p><strong>{{ videosData[v].name.toUpperCase() }}</strong><br>{{ videosData[v].nameDescription }}</p>
+                            <p><strong>{{ videosData[v.sourceId].name.toUpperCase() }}</strong><br>{{ videosData[v.sourceId].nameDescription }}</p>
                         </div>
                     </div>
                 </div>
                 <div class="i" id="leftArrow" @click="prevVideo()">
-                    <i class="fas fa-angle-left" @click="prevVideo()"></i>
+                    <i class="fas fa-angle-left" :style="disabledButtonsClass"></i>
                 </div>
                 <div class="i" id="rightArrow" @click="nextVideo()">
-                    <i class="fas fa-angle-right" @click="nextVideo()"></i>
+                    <i class="fas fa-angle-right"></i>
                 </div>
             </section>
         </section>
@@ -75,137 +75,121 @@
     import { about } from './aboutData.js';
     import { videos } from './videosData.js';
     export default {
-            name: 'app',
-            data () {
-                return {
-                    navLinks: [
-                        {name: 'Методика', link: '#'},
-                        {name: 'О нас', link: '#'},
-                        {name: 'Истории', link: '#'},
-                        {name: 'Контакты', link: '#'}
-                    ],
-                    aboutData: about,
-                    videosData: videos,
-                    id: [0, 1],
-                    pShow: false,
-                    firstTime: true,
-                    position: [
-                        {right: '0%'},
-                        {right: '0%'}
-                    ]
+        name: 'app',
+        data () {
+            return {
+                // About layout
+                position: [
+                    {right: '0%'},
+                    {right: '0%'}
+                ],
+                disabledButtons: false,
+                disabledButtonsClass: {
+                    disabled: true
+                },
+                navLinks: [
+                    {name: 'Методика', link: '#'},
+                    {name: 'О нас', link: '#'},
+                    {name: 'Истории', link: '#'},
+                    {name: 'Контакты', link: '#'}
+                ],
+                aboutData: about,
+                videosData: videos,
+                pShow: false,
+                // About JS
+                firstTime: true,
+                reversedVideos: false,
+                videosId: [0, 1],
+                loopId: [
+                    { pourId: 0, sourceId: 0 },
+                    { pourId: 1, sourceId: 1 },
+                ]
+            }
+        },
+        methods: {
+            stringRequire(string) {
+                return require(string);
+            },
+            readOrHide() {
+                if (this.pShow) {
+                    return 'Скрыть';
+                } else {
+                    return 'Читать больше';
                 }
             },
-            methods: {
-                stringRequire(string) {
-                    return require(string);
-                },
-                readOrHide() {
-                    if (this.pShow) {
-                        return 'Скрыть';
-                    } else {
-                        return 'Читать больше';
-                    }
-                },
-                changeLeftVideoPosition() {
-                    
-                },
-                changeRightVideoPosition() {
+            changeLink(num) {
+                let dif = this.videosData.length - this.loopId[this.videosId[num]].sourceId;
+                if (dif <= 2) {
+                    this.loopId[this.videosId[num]].sourceId = Math.abc(dif - 2);
+                } else {
+                    this.loopId[this.videosId[num]].sourceId += 2;
+                }
+            },
+            moveLeftVideoToRight() {
 
-                },
-                moveLeftVideoToRight() {
-
-                },
-                moveLeftVideoToLeft1() {
-                    const div0 = document.querySelector('#div0');
-                    var passed = 0;
-                    var timer = setInterval(move, 10);
-                    function move() {
-                        if (this.firstTime == false) {
-                            passed = -100;
-                            div0.style.left = '100%';
-                        }
-                        div0.style.right = passed + '%';
-                        if (Math.abs(passed) == 50) {
-                            clearInterval(timer);
-                            if (this.firstTime == true) {
-                                this.firstTime = false;
-                            }
+            },
+            moveLeftVideoToLeft2(num) {
+                let i = 0;
+                let timer = setInterval(move.bind(this), 7);
+                function move() {
+                    i++;
+                    this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
+                    if (i == 40) {
+                        clearInterval(timer);                           
+                        if (this.firstTime) {
+                            this.position[num].right = Number.parseFloat(this.position[num].right) -150 + '%';
+                            this.firstTime = false;
+                            console.log(num, this.position[num].right);
                         } else {
-                            passed += 2.5;
-                            console.log(passed);
-                        }
-                    };
-                },
-                moveLeftVideoToLeft2() {
-                    var i = 0;
-                    var timer = setInterval(move.bind(this), 10);
-                    function move() {
-                        console.log(i, this.position[0].right);
-                        
-                        i++;
-                        this.position[0].right = (Number.parseFloat(this.position[0].right) + 1.25) + '%';
-                        if (i == 19) {
-                            clearInterval(timer);
-                            console.log(this.firstTime);                            
-                            if (this.firstTime) {
-                                this.position[0].right = -100 + '%';
-                                this.firstTime = false;
-                            } else {
-                                this.position[0].right = -50 + '%';
-                                this.firstTime = true;
-                            }
-                        }
-                    };
-                    // var coordinate = Number.parseInt(div0.style.right);
-                    // if (isNaN(coordinate)) {
-                    //     coordinate = 0;
-                    // }
-                    // var timer = setInterval(move.bind(this), 10);
-                    // function move() {
-                    //     div0.style.right = coordinate + '%';
-                    //     if (i == 20) {
-                    //         clearInterval(timer);
-                    //         console.log(this.firstTime);
-                            
-                    //         if (this.firstTime == true) {
-                    //             console.log(Number.parseInt(div0.style.right), coordinate);
-                    //             div0.style.right -= 150 + '%';
-                    //             console.log(Number.parseInt(div0.style.right), coordinate);
-                    //         }
-                    //     } else {
-                    //         i++;
-                    //         coordinate += 2.5;
-                    //         console.log(coordinate);
-                    //     }
-                    // };
-                    // this.position[0].right = -20 + '%';
-                },
-                moveRightVideoToRight() {
-
-                },
-                moveRightVideoToLeft() {
-                    const div1 = document.querySelector('#div1');
-                    var passed = 0;
-                    var timer = setInterval(move, 10);
-                    function move() {
-                        div1.style.right = passed + '%';
-                        if (passed >= 50) {
-                            clearInterval(timer);
-                        } else {
-                            passed += 2.5;
+                            this.firstTime = true;
+                            this.reversedVideos = !this.reversedVideos;
+                            this.changeLink(0);
                         }
                     }
-                },
-                nextVideo() {
-                    this.moveLeftVideoToLeft2();
-                    // setTimeout(this.moveLeftVideoToLeft2.bind(this), 550);
-                    // this.moveRightVideoToLeft();
-                },
-                prevVideo() {
-                    this.moveRightVideoToRight();
-                    this.moveLeftVideoToRight();
-                },
+                };
+            },
+            moveRightVideoToRight() {
+
+            },
+            moveRightVideoToLeft(num) {
+                let i = 0;
+                // var num = 1;
+                // if (this.reversedVideos) {
+                //     num = 0;
+                // }
+                let timer = setInterval(move.bind(this), 7);
+                function move() {
+                    i++;
+                    this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
+                    if (i == 40) {
+                        clearInterval(timer);
+                        console.log(num, this.position[num].right);
+                    }
+                };
+            },
+            nextVideo() {
+                this.moveRightVideoToLeft(this.videosId[1]);
+                this.moveLeftVideoToLeft2(this.videosId[0]);
+                setTimeout(function() {
+                    this.moveLeftVideoToLeft2(this.videosId[0]);
+                }.bind(this), 280);
+            },
+            prevVideo() {
+                this.moveRightVideoToRight();
+                this.moveLeftVideoToRight();
+            },
+        },
+        computed: {
+            reversevideosId() {
+                if (this.reversedVideos) {
+                    this.videosId[0] = 1;
+                    this.videosId[1] = 0;
+                } else {
+                    this.videosId[0] = 0;
+                    this.videosId[1] = 1;
+                }
             }
+        }
     }
 </script>
 
