@@ -48,7 +48,7 @@
         </section>
 
         <!-- Stories Section -->
-        <section id="stories">            
+        <section id="stories"> 
             <h2>ИСТОРИИ</h2>
             <section>
                 <div class="blockVideo">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="i" id="leftArrow" @click="prevVideo()">
-                    <i class="fas fa-angle-left" :style="disabledButtonsClass"></i>
+                    <i class="fas fa-angle-left" @click="prevVideo()"></i>
                 </div>
                 <div class="i" id="rightArrow" @click="nextVideo()">
                     <i class="fas fa-angle-right"></i>
@@ -83,14 +83,11 @@
                     {right: '0%'},
                     {right: '0%'}
                 ],
-                disabledButtons: false,
-                disabledButtonsClass: {
-                    disabled: true
-                },
+                isClickable: true,
                 navLinks: [
-                    {name: 'Методика', link: '#'},
-                    {name: 'О нас', link: '#'},
-                    {name: 'Истории', link: '#'},
+                    {name: 'Методика', link: '#methodics'},
+                    {name: 'О нас', link: '#aboutUs'},
+                    {name: 'Истории', link: '#stories'},
                     {name: 'Контакты', link: '#'}
                 ],
                 aboutData: about,
@@ -117,46 +114,75 @@
                     return 'Читать больше';
                 }
             },
+            toggleBool() {
+                this.isClickable = !this.isClickable;
+                console.log('toggled!');
+            },
             changeLink(num) {
                 let dif = this.videosData.length - this.loopId[this.videosId[num]].sourceId;
                 if (dif <= 2) {
-                    this.loopId[this.videosId[num]].sourceId = Math.abc(dif - 2);
+                    this.loopId[this.videosId[num]].sourceId = Math.abs(dif - 2);
                 } else {
                     this.loopId[this.videosId[num]].sourceId += 2;
                 }
             },
-            moveLeftVideoToRight() {
-
+            moveLeftVideoToRight(num) {
+                let i = 0;
+                let timer = setInterval(move.bind(this), 7);
+                function move() {
+                    i++;
+                    this.position[num].right = (Number.parseFloat(this.position[num].right) - 1.25) + '%';
+                    if (i == 40) {
+                        clearInterval(timer);
+                        console.log(num, this.position[num].right);
+                    }
+                };
             },
-            moveLeftVideoToLeft2(num) {
+            moveLeftVideoToLeft(num) {
                 let i = 0;
                 let timer = setInterval(move.bind(this), 7);
                 function move() {
                     i++;
                     this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
-                    if (i == 40) {
-                        clearInterval(timer);                           
+                    if (i == 40) {                         
                         if (this.firstTime) {
-                            this.position[num].right = Number.parseFloat(this.position[num].right) -150 + '%';
+                            this.position[num].right = Number.parseFloat(this.position[num].right) - 150 + '%';
                             this.firstTime = false;
-                            console.log(num, this.position[num].right);
                         } else {
                             this.firstTime = true;
                             this.reversedVideos = !this.reversedVideos;
-                            this.changeLink(0);
+                            this.videosId[0] = Math.abs(this.videosId[0] - 1);
+                            this.videosId[1] = Math.abs(this.videosId[1] - 1);
+                            setTimeout(this.toggleBool.bind(this), 3000);
+                        }
+                        clearInterval(timer);
+                    }
+                };
+            },
+            moveRightVideoToRight(num) {
+                let i = 0;
+                let timer = setInterval(move.bind(this), 7);
+                function move() {
+                    i++;
+                    this.position[num].right = (Number.parseFloat(this.position[num].right) - 1.25) + '%';
+                    if (i == 40) {
+                        clearInterval(timer);                           
+                        if (this.firstTime) {
+                            this.position[num].right = Number.parseFloat(this.position[num].right) + 150 + '%';
+                            this.changeLink(1);
+                            this.firstTime = false;
+                        } else {
+                            this.firstTime = true;
+                            this.reversedVideos = !this.reversedVideos;
+                            this.videosId[0] = Math.abs(this.videosId[0] - 1);
+                            this.videosId[1] = Math.abs(this.videosId[1] - 1);
+                            setTimeout(this.toggleBool.bind(this), 3000);
                         }
                     }
                 };
             },
-            moveRightVideoToRight() {
-
-            },
             moveRightVideoToLeft(num) {
                 let i = 0;
-                // var num = 1;
-                // if (this.reversedVideos) {
-                //     num = 0;
-                // }
                 let timer = setInterval(move.bind(this), 7);
                 function move() {
                     i++;
@@ -168,27 +194,26 @@
                 };
             },
             nextVideo() {
-                this.moveRightVideoToLeft(this.videosId[1]);
-                this.moveLeftVideoToLeft2(this.videosId[0]);
-                setTimeout(function() {
-                    this.moveLeftVideoToLeft2(this.videosId[0]);
-                }.bind(this), 280);
+                if (this.isClickable) {
+                    this.changeLink(0);
+                    this.toggleBool();
+                    this.moveRightVideoToLeft(this.videosId[1]);
+                    this.moveLeftVideoToLeft(this.videosId[0]);
+                    setTimeout(function() {
+                        this.moveLeftVideoToLeft(this.videosId[0]);
+                    }.bind(this), 500);
+                }
             },
             prevVideo() {
-                this.moveRightVideoToRight();
-                this.moveLeftVideoToRight();
-            },
-        },
-        computed: {
-            reversevideosId() {
-                if (this.reversedVideos) {
-                    this.videosId[0] = 1;
-                    this.videosId[1] = 0;
-                } else {
-                    this.videosId[0] = 0;
-                    this.videosId[1] = 1;
+                if (this.isClickable) {
+                    this.toggleBool();
+                    this.moveRightVideoToLeft(this.videosId[0]);
+                    this.moveLeftVideoToLeft(this.videosId[1]);
+                    setTimeout(function() {
+                        this.moveLeftVideoToLeft(this.videosId[1]);
+                    }.bind(this), 300);
                 }
-            }
+            },
         }
     }
 </script>
