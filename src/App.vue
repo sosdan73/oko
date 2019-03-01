@@ -126,6 +126,14 @@
                     this.loopId[this.videosId[num]].sourceId += 2;
                 }
             },
+            changeLink1(num) {
+                let dif = this.loopId[this.videosId[num]].sourceId;
+                if (dif < 2) {
+                    this.loopId[this.videosId[num]].sourceId += this.videosData.length - 2;
+                } else {
+                    this.loopId[this.videosId[num]].sourceId -= 2;
+                }
+            },
             moveLeftVideoToRight(num) {
                 let i = 0;
                 let timer = setInterval(move.bind(this), 7);
@@ -169,7 +177,6 @@
                         clearInterval(timer);                           
                         if (this.firstTime) {
                             this.position[num].right = Number.parseFloat(this.position[num].right) + 150 + '%';
-                            this.changeLink(1);
                             this.firstTime = false;
                         } else {
                             this.firstTime = true;
@@ -206,11 +213,12 @@
             },
             prevVideo() {
                 if (this.isClickable) {
+                    this.changeLink1(1);
                     this.toggleBool();
-                    this.moveRightVideoToLeft(this.videosId[0]);
-                    this.moveLeftVideoToLeft(this.videosId[1]);
+                    this.moveLeftVideoToRight(this.videosId[0]);
+                    this.moveRightVideoToRight(this.videosId[1]);
                     setTimeout(function() {
-                        this.moveLeftVideoToLeft(this.videosId[1]);
+                        this.moveRightVideoToRight(this.videosId[1]);
                     }.bind(this), 300);
                 }
             },
