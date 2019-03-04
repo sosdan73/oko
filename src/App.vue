@@ -88,7 +88,7 @@
                     {name: 'Методика', link: '#methodics'},
                     {name: 'О нас', link: '#aboutUs'},
                     {name: 'Истории', link: '#stories'},
-                    {name: 'Контакты', link: '#'}
+                    // {name: 'Контакты', link: '#'}
                 ],
                 aboutData: about,
                 videosData: videos,
@@ -116,22 +116,22 @@
             },
             toggleBool() {
                 this.isClickable = !this.isClickable;
-                console.log('toggled!');
+                // console.log('toggled!');
             },
-            changeLink(num) {
-                let dif = this.videosData.length - this.loopId[this.videosId[num]].sourceId;
+            changeLink0() {
+                let dif = this.videosData.length - this.loopId[this.videosId[0]].sourceId;
                 if (dif <= 2) {
-                    this.loopId[this.videosId[num]].sourceId = Math.abs(dif - 2);
+                    this.loopId[this.videosId[0]].sourceId = Math.abs(dif - 2);
                 } else {
-                    this.loopId[this.videosId[num]].sourceId += 2;
+                    this.loopId[this.videosId[0]].sourceId += 2;
                 }
             },
-            changeLink1(num) {
-                let dif = this.loopId[this.videosId[num]].sourceId;
+            changeLink1() {
+                let dif = this.loopId[this.videosId[1]].sourceId;
                 if (dif < 2) {
-                    this.loopId[this.videosId[num]].sourceId += this.videosData.length - 2;
+                    this.loopId[this.videosId[1]].sourceId += this.videosData.length - 2;
                 } else {
-                    this.loopId[this.videosId[num]].sourceId -= 2;
+                    this.loopId[this.videosId[1]].sourceId -= 2;
                 }
             },
             moveLeftVideoToRight(num) {
@@ -142,7 +142,6 @@
                     this.position[num].right = (Number.parseFloat(this.position[num].right) - 1.25) + '%';
                     if (i == 40) {
                         clearInterval(timer);
-                        console.log(num, this.position[num].right);
                     }
                 };
             },
@@ -196,13 +195,12 @@
                     this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
                     if (i == 40) {
                         clearInterval(timer);
-                        console.log(num, this.position[num].right);
                     }
                 };
             },
             nextVideo() {
                 if (this.isClickable) {
-                    this.changeLink(0);
+                    this.changeLink0();
                     this.toggleBool();
                     this.moveRightVideoToLeft(this.videosId[1]);
                     this.moveLeftVideoToLeft(this.videosId[0]);
@@ -213,7 +211,7 @@
             },
             prevVideo() {
                 if (this.isClickable) {
-                    this.changeLink1(1);
+                    this.changeLink1();
                     this.toggleBool();
                     this.moveLeftVideoToRight(this.videosId[0]);
                     this.moveRightVideoToRight(this.videosId[1]);
@@ -261,9 +259,8 @@
             color: $lightgrey;
             margin-bottom: 100px;
             nav {
-                position: absolute;
-                left: 470px;
-                top: 40px;
+                margin-left: 39.16666667%;
+                padding-top: 40px;
                 div {
                     padding: 0 5px;
                     float: left;
