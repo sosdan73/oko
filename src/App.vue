@@ -68,6 +68,13 @@
                 </div>
             </section>
         </section>
+
+        <!-- Footer Section -->
+        <section id="footer">
+            <footer>
+                Контакты: лалала
+            </footer>
+        </section>
     </div>
 </template>
 
@@ -259,11 +266,14 @@
             color: $lightgrey;
             margin-bottom: 100px;
             nav {
-                margin-left: 39.16666667%;
+                margin-left: 34.16666667%;
+                margin-right: 32.83333333%;
                 padding-top: 40px;
+                width: 33%;
                 div {
-                    padding: 0 5px;
+                    padding: 0 0.74404762%;
                     float: left;
+                    width: 31.845238%
                 }
                 div:hover {
                     border-bottom: solid 1px $lightgrey;
@@ -271,15 +281,15 @@
                 a {
                     text-decoration: none;
                     font-size: 14px;
-                    margin: 0 20px;
+                    margin: 0 12.6283355%;
                     color: $lightgrey;
                 }
             }
             #logo {
                 position: absolute;
                 top: 250px;
-                left: 380px;
-                width: 325px;
+                left: 26.3888889%;
+                width: 27.0833333%;
                 h1 {
                     font-size: 52px;
                     margin-bottom: 25px;
@@ -290,7 +300,7 @@
             }
             img {
                 position: absolute;
-                left: 950px;
+                left: 65.9722222%;
                 top: 385px;
             }
         }
@@ -308,7 +318,7 @@
             }
             #text {
                 column-count: 2;
-                margin: 10px 130px 30px 130px;
+                margin: 10px 9.02777778% 30px 9.02777778%;
             }
             #img {
                 width: 150%;
@@ -340,8 +350,7 @@
                 }
                 p {
                     font-size: 24px;
-                    margin: 100px 400px
-
+                    margin: 100px 27.7777778%;
                 }
             }
             section {
@@ -384,6 +393,7 @@
             background-color: $dark;
             color: $lightgrey;
             padding-top: 100px;
+            padding-bottom: 150px;
             h2 {
                 font-size: 14px;
                 font-weight: 700;
@@ -442,6 +452,11 @@
                 }
                 
             }
+        }
+        #footer {
+            height: 60px;
+            // footer {
+            // }
         }
     }
     body {
