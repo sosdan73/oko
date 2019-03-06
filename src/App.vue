@@ -52,11 +52,11 @@
             <h2>ИСТОРИИ</h2>
             <section>
                 <div class="blockVideo">
-                    <div v-for="v in loopId" :id="'div'+v.pourId" class="iframe" :style="position[v.pourId]">
+                    <div :id="'div'+loopId.pourId" class="iframe" :style="position[loopId.pourId]">
                         <div>
-                            <iframe :src="videosData[v.sourceId].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe :src="videosData[loopId.sourceId].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             <hr>
-                            <p><strong>{{ videosData[v.sourceId].name.toUpperCase() }}</strong><br>{{ videosData[v.sourceId].nameDescription }}</p>
+                            <p><strong>{{ videosData[loopId.sourceId].name.toUpperCase() }}</strong><br>{{ videosData[loopId.sourceId].nameDescription }}</p>
                         </div>
                     </div>
                 </div>
@@ -86,10 +86,9 @@
         data () {
             return {
                 // About layout
-                position: [
-                    {right: '0%'},
-                    {right: '0%'}
-                ],
+                position: {
+                    right: '0%'
+                },
                 isClickable: true,
                 navLinks: [
                     {name: 'Методика', link: '#methodics'},
@@ -104,10 +103,10 @@
                 firstTime: true,
                 reversedVideos: false,
                 videosId: [0, 1],
-                loopId: [
-                    { pourId: 0, sourceId: 0 },
-                    { pourId: 1, sourceId: 1 },
-                ]
+                loopId: {
+                    pourId: 0,
+                    sourceId: 0
+                },
             }
         },
         methods: {
@@ -141,17 +140,27 @@
                     this.loopId[this.videosId[1]].sourceId -= 2;
                 }
             },
-            moveLeftVideoToRight(num) {
-                let i = 0;
-                let timer = setInterval(move.bind(this), 7);
-                function move() {
-                    i++;
-                    this.position[num].right = (Number.parseFloat(this.position[num].right) - 1.25) + '%';
-                    if (i == 40) {
-                        clearInterval(timer);
-                    }
-                };
+            changeLink(sign) {
+                let id = this.loopId.sourceId;
+                if (sign == 1) {
+                    id + 1 == this.videosData.length ? id = 0 : id++;
+                    this.loopId.sourceId = id;
+                } else {
+                    id == 0 ? id = this.videosData.length - 1 : id--;
+                    this.loopId.sourceId = id;
+                }
             },
+            // moveLeftVideoToRight(num) {
+            //     let i = 0;
+            //     let timer = setInterval(move.bind(this), 7);
+            //     function move() {
+            //         i++;
+            //         this.position[num].right = (Number.parseFloat(this.position[num].right) - 1.25) + '%';
+            //         if (i == 40) {
+            //             clearInterval(timer);
+            //         }
+            //     };
+            // },
             moveLeftVideoToLeft(num) {
                 let i = 0;
                 let timer = setInterval(move.bind(this), 7);
@@ -194,22 +203,21 @@
                     }
                 };
             },
-            moveRightVideoToLeft(num) {
-                let i = 0;
-                let timer = setInterval(move.bind(this), 7);
-                function move() {
-                    i++;
-                    this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
-                    if (i == 40) {
-                        clearInterval(timer);
-                    }
-                };
-            },
+            // moveRightVideoToLeft(num) {
+            //     let i = 0;
+            //     let timer = setInterval(move.bind(this), 7);
+            //     function move() {
+            //         i++;
+            //         this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
+            //         if (i == 40) {
+            //             clearInterval(timer);
+            //         }
+            //     };
+            // },
             nextVideo() {
                 if (this.isClickable) {
-                    this.changeLink0();
+                    this.changeLink(1);
                     this.toggleBool();
-                    this.moveRightVideoToLeft(this.videosId[1]);
                     this.moveLeftVideoToLeft(this.videosId[0]);
                     setTimeout(function() {
                         this.moveLeftVideoToLeft(this.videosId[0]);
@@ -218,9 +226,8 @@
             },
             prevVideo() {
                 if (this.isClickable) {
-                    this.changeLink1();
+                    this.changeLink(-1);
                     this.toggleBool();
-                    this.moveLeftVideoToRight(this.videosId[0]);
                     this.moveRightVideoToRight(this.videosId[1]);
                     setTimeout(function() {
                         this.moveRightVideoToRight(this.videosId[1]);
@@ -254,7 +261,7 @@
         opacity: 0;
     }
     #app {
-        font-family: 'Roboto', 'Avenir', sans-serif;
+        font-family: 'Avenir', sans-serif;
         text-align: center;
         letter-spacing: 1px;
         #start {
@@ -405,15 +412,13 @@
                 padding-bottom: 200px;
                 .blockVideo {
                     position: absolute;
-                    left: 15.6666667%;
-                    width: 68.6666667%;
+                    left: 20%;
+                    width: 60%;
                     .iframe {
-                        margin: 0 3.94736842%;
-                        display: inline-block;
-                        position: relative;
+                        margin: 0 14.2361111%;
                         iframe {
-                            width: 412px;
-                            height: 235px;
+                            width: 100%;
+                            height: 352.5px;
                         }
                         hr {
                             color: $lightgrey;
@@ -427,8 +432,8 @@
                     cursor: pointer;
                     background-color: $dark;
                     color: $lightgrey;
-                    font-size: 32px;
-                    width: 15.6666667%;
+                    font-size: 46px;
+                    width: 20%;
                     height: 319px;
                     i {
                         cursor: inherit;
