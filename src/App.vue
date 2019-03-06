@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="i" id="leftArrow" @click="prevVideo()">
-                    <i class="fas fa-angle-left" @click="prevVideo()"></i>
+                    <i class="fas fa-angle-left"></i>
                 </div>
                 <div class="i" id="rightArrow" @click="nextVideo()">
                     <i class="fas fa-angle-right"></i>
@@ -124,22 +124,6 @@
                 this.isClickable = !this.isClickable;
                 // console.log('toggled!');
             },
-            changeLink0() {
-                let dif = this.videosData.length - this.loopId[this.videosId[0]].sourceId;
-                if (dif <= 2) {
-                    this.loopId[this.videosId[0]].sourceId = Math.abs(dif - 2);
-                } else {
-                    this.loopId[this.videosId[0]].sourceId += 2;
-                }
-            },
-            changeLink1() {
-                let dif = this.loopId[this.videosId[1]].sourceId;
-                if (dif < 2) {
-                    this.loopId[this.videosId[1]].sourceId += this.videosData.length - 2;
-                } else {
-                    this.loopId[this.videosId[1]].sourceId -= 2;
-                }
-            },
             changeLink(sign) {
                 let id = this.loopId.sourceId;
                 if (sign == 1) {
@@ -150,66 +134,23 @@
                     this.loopId.sourceId = id;
                 }
             },
-            // moveLeftVideoToRight(num) {
-            //     let i = 0;
-            //     let timer = setInterval(move.bind(this), 7);
-            //     function move() {
-            //         i++;
-            //         this.position[num].right = (Number.parseFloat(this.position[num].right) - 1.25) + '%';
-            //         if (i == 40) {
-            //             clearInterval(timer);
-            //         }
-            //     };
-            // },
-            moveLeftVideoToLeft(num) {
-                let i = 0;
-                let timer = setInterval(move.bind(this), 7);
-                function move() {
-                    i++;
-                    this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
-                    if (i == 40) {                         
-                        if (this.firstTime) {
-                            this.position[num].right = Number.parseFloat(this.position[num].right) - 150 + '%';
-                            this.firstTime = false;
-                        } else {
-                            this.firstTime = true;
-                            this.reversedVideos = !this.reversedVideos;
-                            this.videosId[0] = Math.abs(this.videosId[0] - 1);
-                            this.videosId[1] = Math.abs(this.videosId[1] - 1);
-                            setTimeout(this.toggleBool.bind(this), 3000);
-                        }
-                        clearInterval(timer);
-                    }
-                };
-            },
-            moveRightVideoToRight(num) {
-                let i = 0;
-                let timer = setInterval(move.bind(this), 7);
-                function move() {
-                    i++;
-                    this.position[num].right = (Number.parseFloat(this.position[num].right) - 1.25) + '%';
-                    if (i == 40) {
-                        clearInterval(timer);                           
-                        if (this.firstTime) {
-                            this.position[num].right = Number.parseFloat(this.position[num].right) + 150 + '%';
-                            this.firstTime = false;
-                        } else {
-                            this.firstTime = true;
-                            this.reversedVideos = !this.reversedVideos;
-                            this.videosId[0] = Math.abs(this.videosId[0] - 1);
-                            this.videosId[1] = Math.abs(this.videosId[1] - 1);
-                            setTimeout(this.toggleBool.bind(this), 3000);
-                        }
-                    }
-                };
-            },
-            // moveRightVideoToLeft(num) {
+            // moveLeftVideoToLeft(num) {
             //     let i = 0;
             //     let timer = setInterval(move.bind(this), 7);
             //     function move() {
             //         i++;
             //         this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
-            //         if (i == 40) {
+            //         if (i == 40) {                         
+            //             if (this.firstTime) {
+            //                 this.position[num].right = Number.parseFloat(this.position[num].right) - 150 + '%';
+            //                 this.firstTime = false;
+            //             } else {
+            //                 this.firstTime = true;
+            //                 this.reversedVideos = !this.reversedVideos;
+            //                 this.videosId[0] = Math.abs(this.videosId[0] - 1);
+            //                 this.videosId[1] = Math.abs(this.videosId[1] - 1);
+            //                 setTimeout(this.toggleBool.bind(this), 3000);
+            //             }
             //             clearInterval(timer);
             //         }
             //     };
@@ -218,20 +159,14 @@
                 if (this.isClickable) {
                     this.changeLink(1);
                     this.toggleBool();
-                    this.moveLeftVideoToLeft(this.videosId[0]);
-                    setTimeout(function() {
-                        this.moveLeftVideoToLeft(this.videosId[0]);
-                    }.bind(this), 500);
+                    setTimeout(this.toggleBool, 1500);
                 }
             },
             prevVideo() {
                 if (this.isClickable) {
                     this.changeLink(-1);
                     this.toggleBool();
-                    this.moveRightVideoToRight(this.videosId[1]);
-                    setTimeout(function() {
-                        this.moveRightVideoToRight(this.videosId[1]);
-                    }.bind(this), 300);
+                    setTimeout(this.toggleBool, 1500);
                 }
             },
         }
