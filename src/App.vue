@@ -16,34 +16,37 @@
 
         <!-- Methodics Section -->
         <section id="methodics">
-            <header>
-                <h2>Взаимосвязь равновесия, устойчивости межоклюзионного пространства</h2>
-                <p>Межоклюзионное пространство является «ключом» к функциональным мышечным цепям.</p>
-            </header>
-            <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis ullam temporibus deserunt alias natus autem ex incidunt. Dolore dolor commodi optio natus maiores aliquid explicabo maxime perferendis velit non inventore officiis sequi laborum modi officia, ipsum sit deleniti quo laboriosam voluptatibus accusamus fuga sapiente tenetur excepturi. Quos eius quas facilis doloremque, similique repudiandae laborum nisi tempora dicta possimus iure vitae dolorum magni illum aspernatur expedita laboriosam eaque ut temporibus voluptatibus asperiores hic! Dolorem sunt nulla nobis libero nostrum dolor ad expedita quisquam reiciendis, illum delectus possimus natus accusamus quos consectetur. Et debitis corrupti necessitatibus quibusdam. Ipsam architecto ad magnam.</p>
-            <transition name="appereance">
-                <p v-if="pShow" id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aperiam veniam esse cum nam possimus id, sapiente, a harum perferendis atque quidem eius impedit consequuntur vitae vel praesentium, rerum mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci ab dicta ad molestiae repellendus distinctio doloribus modi, rem veritatis similique minima placeat ipsa dignissimos! Repellendus voluptatem aperiam quia labore!</p>
-            </transition>
-            <span @click="pShow = !pShow">{{ readOrHide() }}</span>
-            <img src="./images/wave2.png" id="img"></img>
-            <!-- <img src="./images/wave.png" alt=""> -->
+            <section id="sectionMethodics">
+                    <header>
+                        <h2>Взаимосвязь равновесия, устойчивости межоклюзионного пространства</h2>
+                        <p>Межоклюзионное пространство является «ключом» к функциональным мышечным цепям.</p>
+                    </header>
+                    <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis ullam temporibus deserunt alias natus autem ex incidunt. Dolore dolor commodi optio natus maiores aliquid explicabo maxime perferendis velit non inventore officiis sequi laborum modi officia, ipsum sit deleniti quo laboriosam voluptatibus accusamus fuga sapiente tenetur excepturi. Quos eius quas facilis doloremque, similique repudiandae laborum nisi tempora dicta possimus iure vitae dolorum magni illum aspernatur expedita laboriosam eaque ut temporibus voluptatibus asperiores hic! Dolorem sunt nulla nobis libero nostrum dolor ad expedita quisquam reiciendis, illum delectus possimus natus accusamus quos consectetur. Et debitis corrupti necessitatibus quibusdam. Ipsam architecto ad magnam.</p>
+                    <transition name="appereance">
+                        <p v-if="pShow" id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aperiam veniam esse cum nam possimus id, sapiente, a harum perferendis atque quidem eius impedit consequuntur vitae vel praesentium, rerum mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci ab dicta ad molestiae repellendus distinctio doloribus modi, rem veritatis similique minima placeat ipsa dignissimos! Repellendus voluptatem aperiam quia labore!</p>
+                    </transition>
+                    <span @click="pShow = !pShow">{{ readOrHide() }}</span>
+                    <img src="./images/wave2.png" id="img"></img>
+            </section>
         </section>
 
         <!-- About us Section -->
         <section id="aboutUs">
-            <header>
-                <h2>О нас</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam repellat praesentium vitae quidem odio aspernatur?</p>
-            </header>
-            <section>
-                <div v-for="a in aboutData">
-                    <img :src="a.imageLink" alt="">
-                    <p>{{ a.description }}</p>
-                    <div>
-                        <span>{{ a.name.toUpperCase() }}</span>
-                        <p>{{ a.position }}</p>
+            <section id="sectionAboutUs">
+                <header>
+                    <h2>О нас</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam repellat praesentium vitae quidem odio aspernatur?</p>
+                </header>
+                <section>
+                    <div v-for="a in aboutData">
+                        <img :src="a.imageLink" alt="">
+                        <div>
+                            <span>{{ a.name.toUpperCase() }}</span>
+                            <p>{{ a.position }}</p>
+                        </div>
+                        <p>{{ a.description }}</p>
                     </div>
-                </div>
+                </section>
             </section>
         </section>
 
@@ -72,7 +75,27 @@
         <!-- Footer Section -->
         <section id="footer">
             <footer>
-                Контакты: лалала
+                <div id="footerLogo">
+                    <!-- <img src="./images/Logo.png" alt=""> -->
+                    <p><strong>О ОКО</strong></p>
+                </div>
+                <div id="footerContacts">
+                    <div id="authorContacts">
+                        <span id="phone"><a href="tel:+7(999)999-99-99">+7(999)999-99-99</a></span>
+                        <br>
+                        <span id="mail"><a href="mailto:web@page.com">web@page.com&nbsp</a></span>
+                    </div>
+                    <div id="creator">
+                        <span>Made by <strong>BSG Studios &copy</strong></span>
+                    </div>
+                </div>
+                <div id="footerLink">
+                    <p>
+                        Подробнее о клинике:
+                        <br>
+                        <a href="https://dial-dent.ru" target="_blank">www.dial-dent.ru</a>
+                    </p>
+                </div>
             </footer>
         </section>
     </div>
@@ -177,6 +200,7 @@
     $pink: #ffeff2;
     $lightgrey: #eee;
     $grey: #b0b0b0;
+    $creatorgrey: #777777;
     $dark: #454545;
     @keyframes img {
         from {
@@ -248,84 +272,91 @@
         }
         #methodics {
             color: $dark;
-            header {
-                margin-bottom: 50px;
-                h2 {
-                    font-size: 52px;
-                    margin-bottom: 20px;
+            #sectionMethodics {
+                padding-top: 100px;
+                header {
+                    margin-bottom: 50px;
+                    h2 {
+                        font-size: 52px;
+                        margin-bottom: 20px;
+                    }
+                    p {
+                        font-size: 24px;
+                    }
                 }
-                p {
-                    font-size: 24px;
+                #text {
+                    column-count: 2;
+                    margin: 10px 9.02777778% 30px 9.02777778%;
                 }
-            }
-            #text {
-                column-count: 2;
-                margin: 10px 9.02777778% 30px 9.02777778%;
-            }
-            #img {
-                width: 150%;
-                max-height: 30%;
-                animation-name: img;
-                animation-duration: 5s;
-                animation-iteration-count: infinite;
-                animation-timing-function: linear;
-            }
-            span {
-                font-weight: bold;
-                cursor: pointer;
-                position: relative;
-                margin-top: 500px;
+                #img {
+                    width: 150%;
+                    max-height: 30%;
+                    animation-name: img;
+                    animation-duration: 5s;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: linear;
+                }
+                span {
+                    font-weight: bold;
+                    cursor: pointer;
+                    position: relative;
+                    margin-top: 500px;
+                }
             }
         }
         #aboutUs {
-            color: $dark;
-            background-color: $grey;
-            background-image: url('./images/pink_bubbles.png');
-            background-attachment: local;
-            background-size: 110% 120%;
-            background-repeat: no-repeat;
-            padding-bottom: 110px;
-            header {
-                h2 {
-                    font-size: 52px;
-                    margin-bottom: -50px;
-                }
-                p {
-                    font-size: 24px;
-                    margin: 100px 27.7777778%;
-                }
-            }
-            section {
-                width: 80%;
-                margin-left: 10%;
-                margin-right: 10%;
-                height: 338px;
-                div {
-                    float: left;
-                    width: 20%;
-                    margin-right: 6.66666667%;
-                    margin-left: 6.66666667%;
-                    margin-bottom: 50px;
-                    img {
-                        width: 60%;
-                        margin-bottom: 15px;
+            padding-top: 20px;
+            #sectionAboutUs {
+                color: $dark;
+                background-color: $grey;
+                background-image: url('./images/pink_bubbles.png');
+                background-attachment: local;
+                background-size: 110% 120%;
+                background-repeat: no-repeat;
+                padding-bottom: 110px;
+                header {
+                    h2 {
+                        font-size: 52px;
+                        margin-bottom: 10px;
                     }
                     p {
-                        font-size: 16px;
-                        margin-bottom: 40px;
+                        font-size: 24px;
+                        margin: 20px 27.7777778%;
                     }
+                }
+                section {
+                    width: 80%;
+                    margin-left: 10%;
+                    margin-right: 10%;
+                    margin-bottom: 100px;
+                    height: 338px;
                     div {
-                        border: none;
-                        float: none;
-                        width: 100%;
-                        margin: 0;
-                        span {
-                            font-weight: 900;
-                            letter-spacing: 0.5px;
+                        float: left;
+                        width: 20%;
+                        margin-right: 6.66666667%;
+                        margin-left: 6.66666667%;
+                        margin-bottom: 50px;
+                        img {
+                            width: 60%;
+                            margin-bottom: 15px;
                         }
                         p {
-                            margin-bottom: 0;
-                            font-style: italic;
+                            font-size: 16px;
+                            margin-bottom: 40px;
+                        }
+                        div {
+                            border: none;
+                            float: none;
+                            width: 100%;
+                            margin: 0;
+                            span {
+                                font-weight: 900;
+                                letter-spacing: 0.5px;
+                            }
+                            p {
+                                margin-bottom: 0;
+                                font-style: italic;
+                            }
                         }
                     }
                 }
@@ -334,10 +365,10 @@
         #stories {
             background-color: $dark;
             color: $lightgrey;
-            padding-top: 100px;
+            padding-top: 20px;
             padding-bottom: 150px;
             h2 {
-                font-size: 14px;
+                font-size: 52px;
                 font-weight: 700;
                 letter-spacing: 0.5px;
                 margin-bottom: 25px;
@@ -394,9 +425,51 @@
             }
         }
         #footer {
-            height: 60px;
-            // footer {
-            // }
+            color: $dark;
+            a {
+                text-decoration: none;
+                color: $dark;
+            }
+            a:hover {
+                font-weight: 700;
+            }
+            #footerLogo {
+                width: 20%;
+                height: 100%;
+                float: left;
+                img {
+                    width: 10%;
+                }
+                p {
+                    // float: right;
+                    // margin-right: 50%;
+                    margin-top: 30px;
+                }
+            }
+            #footerContacts {
+                width: 53%;
+                margin-right: 2%; 
+                height: 100%;
+                float: left;
+                #authorContacts {
+                    text-align: right;
+                    margin-top: 5px;
+                }
+                #creator {
+                    color: $creatorgrey;
+                    text-align: right;
+                    span {
+                        margin: 0;
+                    }
+                }
+            }
+            #footerLink {
+                background-color: $lightgrey;
+                width: 25%;
+                height: 10000%;
+                float: left;
+                color: $dark;                
+            }
         }
     }
     body {
