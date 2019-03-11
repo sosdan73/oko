@@ -55,13 +55,15 @@
             <h2>ИСТОРИИ</h2>
             <section>
                 <div class="blockVideo">
-                    <div :id="'div'+loopId.pourId" class="iframe" :style="position[loopId.pourId]">
-                        <div>
-                            <iframe :src="videosData[loopId.sourceId].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <hr>
-                            <p><strong>{{ videosData[loopId.sourceId].name.toUpperCase() }}</strong><br>{{ videosData[loopId.sourceId].nameDescription }}</p>
+                    <transition name="videos">
+                        <div :id="'div'+loopId.pourId" class="iframe" :style="position[loopId.pourId]" v-if="videosShow">
+                            <div>
+                                <iframe :src="videosData[loopId.sourceId].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <hr>
+                                <p><strong>{{ videosData[loopId.sourceId].name.toUpperCase() }}</strong><br>{{ videosData[loopId.sourceId].nameDescription }}</p>
+                            </div>
                         </div>
-                    </div>
+                    </transition>
                 </div>
                 <div class="i" id="leftArrow" @click="prevVideo()">
                     <i class="fas fa-angle-left"></i>
@@ -80,21 +82,17 @@
                     <p><strong>О ОКО</strong></p>
                 </div>
                 <div id="footerContacts">
-                    <div id="authorContacts">
-                        <span id="phone"><a href="tel:+7(999)999-99-99">+7(999)999-99-99</a></span>
-                        <br>
-                        <span id="mail"><a href="mailto:web@page.com">web@page.com&nbsp</a></span>
-                    </div>
-                    <div id="creator">
-                        <span>Made by <strong>BSG Studios &copy</strong></span>
-                    </div>
+                        <p>
+                            <span>Подробнее о клинике:</span>
+                            <span id="phone"><a href="tel:+7(999)999-99-99">+7(999)999-99-99</a></span>
+                            <br>
+                            <span id="mail"><a href="mailto:web@page.com">web@page.com&nbsp</a></span>
+                            <br>
+                            <a href="https://dial-dent.ru" target="_blank">www.dial-dent.ru</a>
+                        </p>
                 </div>
                 <div id="footerLink">
-                    <p>
-                        Подробнее о клинике:
-                        <br>
-                        <a href="https://dial-dent.ru" target="_blank">www.dial-dent.ru</a>
-                    </p>
+                    <span>Made by <strong>BSG Studios &copy</strong></span>
                 </div>
             </footer>
         </section>
@@ -122,6 +120,7 @@
                 aboutData: about,
                 videosData: videos,
                 pShow: false,
+                videosShow: true,
                 // About JS
                 firstTime: true,
                 reversedVideos: false,
@@ -143,9 +142,11 @@
                     return 'Читать больше';
                 }
             },
-            toggleBool() {
-                this.isClickable = !this.isClickable;
-                // console.log('toggled!');
+            hideShowVideo() {
+                this.videosShow = !this.videosShow;
+                setTimeout(function() {
+                    this.videosShow = !this.videosShow;
+                }.bind(this), 750);
             },
             changeLink(sign) {
                 let id = this.loopId.sourceId;
@@ -157,39 +158,24 @@
                     this.loopId.sourceId = id;
                 }
             },
-            // moveLeftVideoToLeft(num) {
-            //     let i = 0;
-            //     let timer = setInterval(move.bind(this), 7);
-            //     function move() {
-            //         i++;
-            //         this.position[num].right = (Number.parseFloat(this.position[num].right) + 1.25) + '%';
-            //         if (i == 40) {                         
-            //             if (this.firstTime) {
-            //                 this.position[num].right = Number.parseFloat(this.position[num].right) - 150 + '%';
-            //                 this.firstTime = false;
-            //             } else {
-            //                 this.firstTime = true;
-            //                 this.reversedVideos = !this.reversedVideos;
-            //                 this.videosId[0] = Math.abs(this.videosId[0] - 1);
-            //                 this.videosId[1] = Math.abs(this.videosId[1] - 1);
-            //                 setTimeout(this.toggleBool.bind(this), 3000);
-            //             }
-            //             clearInterval(timer);
-            //         }
-            //     };
-            // },
             nextVideo() {
                 if (this.isClickable) {
                     this.changeLink(1);
-                    this.toggleBool();
-                    setTimeout(this.toggleBool, 1500);
+                    this.isClickable = !this.isClickable;
+                    this.hideShowVideo();
+                    setTimeout(function() {
+                        this.isClickable = !this.isClickable;
+                    }.bind(this), 750);
                 }
             },
             prevVideo() {
                 if (this.isClickable) {
                     this.changeLink(-1);
-                    this.toggleBool();
-                    setTimeout(this.toggleBool, 1500);
+                    this.isClickable = !this.isClickable;
+                    this.hideShowVideo();
+                    setTimeout(function() {
+                        this.isClickable = !this.isClickable;
+                    }.bind(this), 750);
                 }
             },
         }
@@ -217,6 +203,16 @@
     }
     .appereance-leave-active {
         transition: opacity 500ms;
+        opacity: 0;
+    }
+    .videos-enter {
+        opacity: 0;
+    }
+    .videos-enter-active {
+        transition: opacity 750ms;
+    }
+    .videos-leave-active {
+        transition: opacity 750ms;
         opacity: 0;
     }
     #app {
@@ -451,24 +447,21 @@
                 margin-right: 2%; 
                 height: 100%;
                 float: left;
-                #authorContacts {
-                    text-align: right;
-                    margin-top: 5px;
-                }
-                #creator {
-                    color: $creatorgrey;
-                    text-align: right;
-                    span {
-                        margin: 0;
-                    }
+                text-align: right;
+                p {
+                    margin-bottom: 0;
                 }
             }
             #footerLink {
                 background-color: $lightgrey;
+                color: $creatorgrey;
                 width: 25%;
-                height: 10000%;
+                height: 90px;
                 float: left;
-                color: $dark;                
+                span {
+                    position: relative;
+                    top: 40%;
+                }           
             }
         }
     }
