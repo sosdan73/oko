@@ -1,101 +1,106 @@
 <template>
     <div id="app">
-        <!-- Start Section -->
-        <section id="start">
-            <nav>
-                <div v-for="i in navLinks">
-                    <a :href="i.link">{{ i.name.toUpperCase() }}</a>
+        <div id="desktop">
+            <!-- Start Section -->
+            <section id="start">
+                <nav>
+                    <div v-for="i in navLinks">
+                        <a :href="i.link">{{ i.name.toUpperCase() }}</a>
+                    </div>
+                </nav>
+                <img src="./images/paws.png" alt=" ">
+                <div id="logo">
+                    <h1>ОКО</h1>
+                    <h2>Ортокранио-окклюзивное программирование</h2>
                 </div>
-            </nav>
-            <img src="./images/paws.png" alt=" ">
-            <div id="logo">
-                <h1>ОКО</h1>
-                <h2>Ортокранио-окклюзивное программирование</h2>
-            </div>
-        </section>
-
-        <!-- Methodics Section -->
-        <section id="methodics">
-            <section id="sectionMethodics">
-                    <header>
-                        <h2>Взаимосвязь равновесия, устойчивости межоклюзионного пространства</h2>
-                        <p>Межоклюзионное пространство является «ключом» к функциональным мышечным цепям.</p>
-                    </header>
-                    <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis ullam temporibus deserunt alias natus autem ex incidunt. Dolore dolor commodi optio natus maiores aliquid explicabo maxime perferendis velit non inventore officiis sequi laborum modi officia, ipsum sit deleniti quo laboriosam voluptatibus accusamus fuga sapiente tenetur excepturi. Quos eius quas facilis doloremque, similique repudiandae laborum nisi tempora dicta possimus iure vitae dolorum magni illum aspernatur expedita laboriosam eaque ut temporibus voluptatibus asperiores hic! Dolorem sunt nulla nobis libero nostrum dolor ad expedita quisquam reiciendis, illum delectus possimus natus accusamus quos consectetur. Et debitis corrupti necessitatibus quibusdam. Ipsam architecto ad magnam.</p>
-                    <transition name="appereance">
-                        <p v-if="pShow" id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aperiam veniam esse cum nam possimus id, sapiente, a harum perferendis atque quidem eius impedit consequuntur vitae vel praesentium, rerum mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci ab dicta ad molestiae repellendus distinctio doloribus modi, rem veritatis similique minima placeat ipsa dignissimos! Repellendus voluptatem aperiam quia labore!</p>
-                    </transition>
-                    <span @click="pShow = !pShow">{{ readOrHide() }}</span>
-                    <img src="./images/wave2.png" id="img"></img>
             </section>
-        </section>
 
-        <!-- About us Section -->
-        <section id="aboutUs">
-            <section id="sectionAboutUs">
-                <header>
-                    <h2>О нас</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam repellat praesentium vitae quidem odio aspernatur?</p>
-                </header>
-                <section>
-                    <div v-for="a in aboutData">
-                        <img :src="a.imageLink" alt="">
-                        <div>
-                            <span>{{ a.name.toUpperCase() }}</span>
-                            <p>{{ a.position }}</p>
+            <!-- Methodics Section -->
+            <section id="methodics">
+                <section id="sectionMethodics">
+                        <header>
+                            <h2>Взаимосвязь равновесия, устойчивости межоклюзионного пространства</h2>
+                            <p>Межоклюзионное пространство является «ключом» к функциональным мышечным цепям.</p>
+                        </header>
+                        <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis ullam temporibus deserunt alias natus autem ex incidunt. Dolore dolor commodi optio natus maiores aliquid explicabo maxime perferendis velit non inventore officiis sequi laborum modi officia, ipsum sit deleniti quo laboriosam voluptatibus accusamus fuga sapiente tenetur excepturi. Quos eius quas facilis doloremque, similique repudiandae laborum nisi tempora dicta possimus iure vitae dolorum magni illum aspernatur expedita laboriosam eaque ut temporibus voluptatibus asperiores hic! Dolorem sunt nulla nobis libero nostrum dolor ad expedita quisquam reiciendis, illum delectus possimus natus accusamus quos consectetur. Et debitis corrupti necessitatibus quibusdam. Ipsam architecto ad magnam.</p>
+                        <transition name="appereance">
+                            <p v-if="pShow" id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aperiam veniam esse cum nam possimus id, sapiente, a harum perferendis atque quidem eius impedit consequuntur vitae vel praesentium, rerum mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci ab dicta ad molestiae repellendus distinctio doloribus modi, rem veritatis similique minima placeat ipsa dignissimos! Repellendus voluptatem aperiam quia labore!</p>
+                        </transition>
+                        <span @click="pShow = !pShow">{{ readOrHide() }}</span>
+                        <img src="./images/wave2.png" id="img"></img>
+                </section>
+            </section>
+
+            <!-- About us Section -->
+            <section id="aboutUs">
+                <section id="sectionAboutUs">
+                    <header>
+                        <h2>О нас</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam repellat praesentium vitae quidem odio aspernatur?</p>
+                    </header>
+                    <section>
+                        <div v-for="a in aboutData">
+                            <img :src="a.imageLink" alt="">
+                            <div>
+                                <span>{{ a.name.toUpperCase() }}</span>
+                                <p>{{ a.position }}</p>
+                            </div>
+                            <p>{{ a.description }}</p>
                         </div>
-                        <p>{{ a.description }}</p>
+                    </section>
+                </section>
+            </section>
+
+            <!-- Stories Section -->
+            <section id="stories"> 
+                <h2>ИСТОРИИ</h2>
+                <section>
+                    <div class="blockVideo">
+                        <transition name="videos">
+                            <div :id="'div'+loopId.pourId" class="iframe" :style="position[loopId.pourId]" v-if="videosShow">
+                                <div>
+                                    <iframe :src="videosData[loopId.sourceId].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <hr>
+                                    <p><strong>{{ videosData[loopId.sourceId].name.toUpperCase() }}</strong><br>{{ videosData[loopId.sourceId].nameDescription }}</p>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+                    <div class="i" id="leftArrow" @click="prevVideo()">
+                        <i class="fas fa-angle-left"></i>
+                    </div>
+                    <div class="i" id="rightArrow" @click="nextVideo()">
+                        <i class="fas fa-angle-right"></i>
                     </div>
                 </section>
             </section>
-        </section>
 
-        <!-- Stories Section -->
-        <section id="stories"> 
-            <h2>ИСТОРИИ</h2>
-            <section>
-                <div class="blockVideo">
-                    <transition name="videos">
-                        <div :id="'div'+loopId.pourId" class="iframe" :style="position[loopId.pourId]" v-if="videosShow">
-                            <div>
-                                <iframe :src="videosData[loopId.sourceId].link" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                <hr>
-                                <p><strong>{{ videosData[loopId.sourceId].name.toUpperCase() }}</strong><br>{{ videosData[loopId.sourceId].nameDescription }}</p>
-                            </div>
-                        </div>
-                    </transition>
-                </div>
-                <div class="i" id="leftArrow" @click="prevVideo()">
-                    <i class="fas fa-angle-left"></i>
-                </div>
-                <div class="i" id="rightArrow" @click="nextVideo()">
-                    <i class="fas fa-angle-right"></i>
-                </div>
+            <!-- Footer Section -->
+            <section id="footer">
+                <footer>
+                    <div id="footerLogo">
+                        <!-- <img src="./images/Logo.png" alt=""> -->
+                        <p><strong>О ОКО</strong></p>
+                    </div>
+                    <div id="footerContacts">
+                            <p>
+                                <span>Подробнее о клинике:</span>
+                                <span id="phone"><a href="tel:+7(999)999-99-99">+7(999)999-99-99</a></span>
+                                <br>
+                                <span id="mail"><a href="mailto:web@page.com">web@page.com&nbsp</a></span>
+                                <br>
+                                <a href="https://dial-dent.ru" target="_blank">www.dial-dent.ru</a>
+                            </p>
+                    </div>
+                    <div id="footerLink">
+                        <span>Made by <strong>BSG Studios &copy</strong></span>
+                    </div>
+                </footer>
             </section>
-        </section>
-
-        <!-- Footer Section -->
-        <section id="footer">
-            <footer>
-                <div id="footerLogo">
-                    <!-- <img src="./images/Logo.png" alt=""> -->
-                    <p><strong>О ОКО</strong></p>
-                </div>
-                <div id="footerContacts">
-                        <p>
-                            <span>Подробнее о клинике:</span>
-                            <span id="phone"><a href="tel:+7(999)999-99-99">+7(999)999-99-99</a></span>
-                            <br>
-                            <span id="mail"><a href="mailto:web@page.com">web@page.com&nbsp</a></span>
-                            <br>
-                            <a href="https://dial-dent.ru" target="_blank">www.dial-dent.ru</a>
-                        </p>
-                </div>
-                <div id="footerLink">
-                    <span>Made by <strong>BSG Studios &copy</strong></span>
-                </div>
-            </footer>
-        </section>
+        </div>
+        <div id="mobile">
+            <h1>Hello world</h1>
+        </div>
     </div>
 </template>
 
@@ -188,6 +193,18 @@
     $grey: #b0b0b0;
     $creatorgrey: #777777;
     $dark: #454545;
+
+    @media (min-width: 992px) {
+        #mobile {
+            display: none;
+        }
+    }
+    @media (max-width: 991px) {
+        #desktop {
+            display: none;
+        }
+    }
+
     @keyframes img {
         from {
             transform: translateX(0);
@@ -195,6 +212,7 @@
             transform: translateX(-33.3333%);
         }
     }
+
     .appereance-enter {
         opacity: 0;
     }
