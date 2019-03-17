@@ -2,25 +2,47 @@
     <div>
         <img id="menuImg" src="../images/navbar_background.png" alt="">
         <a href="#" @click="showMenu"><i class="fas fa-bars"></i></a>
-        <div id="menu">
-            <div v-for="l in links">
-                <a :href="l.linkMob">{{ l.name.toUpperCase() }}</a>
+        <transition name="anim-menu">
+            <div id="menu" v-if="menuClicked">
+                <div v-for="l in links">
+                    <a :href="l.linkMob">{{ l.name.toUpperCase() }}</a>
+                </div>
             </div>
-        </div>
+        </transition>
     </div>
 </template>
 
 <script>
     import { navlinks } from '../data.js';
+    import { eventBus } from '../main.js';
     export default {
         data() {
             return {
-                links: navlinks
+                links: navlinks,
+                menuClicked: false
             }
         },
         methods: {
             showMenu() {
-
+                this.menuClicked = !this.menuClicked;
+                eventBus.$emit('changeLogoShowing', this.menuClicked);
+                if (this.menuClicked) {
+                    var menuImg = document.querySelector('#menuImg');
+                    var top = -12;
+                    var timer = setInterval(function() {
+                        top += 0.5;
+                        menuImg.style.top = top + '%';
+                        if (top == 0) clearInterval(timer);
+                    }, 20);
+                } else {
+                    var menuImg = document.querySelector('#menuImg');
+                    var top = 0;
+                    var timer = setInterval(function() {
+                        top -= 0.5;
+                        menuImg.style.top = top + '%';
+                        if (top == -12) clearInterval(timer);
+                    }, 20);
+                }
             }
         },
 
@@ -29,6 +51,18 @@
 
 <style lang="scss" scoped>
     $grey: #b0b0b0;
+
+    .anim-menu-enter {
+        opacity: 0;
+    }
+    .anim-menu-enter-active {
+        transition: opacity 750ms;
+    }
+    .anim-menu-leave-active {
+        transition: opacity 750ms;
+        opacity: 0;
+    }
+
     #menuImg {
         width: 100%;
         height: 30%;
