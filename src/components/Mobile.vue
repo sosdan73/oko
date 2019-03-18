@@ -1,8 +1,9 @@
 <template>
     <div>
         <navbar></navbar>
-        <router-view></router-view>
-        
+        <transition name="appear" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
@@ -24,4 +25,14 @@
     $creatorgrey: #777777;
     $dark: #454545;
     
+    .appear-enter {
+        opacity: 0;
+    }
+    .appear-enter-active {
+        transition: opacity 800ms;
+    }
+    .appear-leave-active {
+        transition: opacity 800ms;
+        opacity: 0;
+    }
 </style>

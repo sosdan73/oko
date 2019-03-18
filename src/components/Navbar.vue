@@ -3,10 +3,15 @@
         <img id="menuImg" src="../images/navbar_background.png" alt="">
         <a href="#" @click="showMenu"><i class="fas fa-bars"></i></a>
         <transition name="anim-menu">
-            <div id="menu" v-if="menuClicked">
+            <div id="menu" v-if="menuClicked" @click="showMenu">
                 <div v-for="l in links">
-                    <a :href="l.linkMob">{{ l.name.toUpperCase() }}</a>
+                    <router-link :to="l.linkMob">{{ l.name.toUpperCase() }}</router-link>
                 </div>
+            </div>
+        </transition>
+        <transition name="anim-img">
+            <div @click="showMenu">
+                <router-link to="/" v-if="menuClicked"><i class="fas fa-backward"></i></router-link>
             </div>
         </transition>
     </div>
@@ -63,6 +68,17 @@
         opacity: 0;
     }
 
+    .anim-img-enter {
+        opacity: 0;
+    }
+    .anim-img-enter-active {
+        transition: opacity 7500ms;
+    }
+    .anim-img-leave-active {
+        transition: opacity 750ms;
+        opacity: 0;
+    }
+
     #menuImg {
         width: 100%;
         height: 30%;
@@ -93,5 +109,10 @@
                 border-bottom: 1px solid $grey;
             }
         }
+    }
+    .fa-backward {
+        position: absolute;
+        left: 15%;
+        top: 2%;
     }
 </style>
