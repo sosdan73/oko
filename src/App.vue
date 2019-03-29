@@ -23,12 +23,12 @@
     $creatorgrey: #777777;
     $dark: #454545;
 
-    @media (min-width: 992px) {
+    @media (min-width: 800px) {
         #mobile {
             display: none;
         }
     }
-    @media (max-width: 991px) {
+    @media (max-width: 799px) {
         #desktop {
             display: none;
         }
@@ -45,6 +45,9 @@
         height: 100%;
         width: 100%;
         background-color: $grey;
+        overflow-y: hidden;
+    }
+    html, body {
         overflow-x: hidden;
     }
 </style>

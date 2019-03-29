@@ -21,12 +21,13 @@
                         <h2>Взаимосвязь равновесия, устойчивости межоклюзионного пространства</h2>
                         <p>Межоклюзионное пространство является «ключом» к функциональным мышечным цепям.</p>
                     </header>
-                    <p id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis ullam temporibus deserunt alias natus autem ex incidunt. Dolore dolor commodi optio natus maiores aliquid explicabo maxime perferendis velit non inventore officiis sequi laborum modi officia, ipsum sit deleniti quo laboriosam voluptatibus accusamus fuga sapiente tenetur excepturi. Quos eius quas facilis doloremque, similique repudiandae laborum nisi tempora dicta possimus iure vitae dolorum magni illum aspernatur expedita laboriosam eaque ut temporibus voluptatibus asperiores hic! Dolorem sunt nulla nobis libero nostrum dolor ad expedita quisquam reiciendis, illum delectus possimus natus accusamus quos consectetur. Et debitis corrupti necessitatibus quibusdam. Ipsam architecto ad magnam.</p>
+                    <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis ullam temporibus deserunt alias natus autem ex incidunt. Dolore dolor commodi optio natus maiores aliquid explicabo maxime perferendis velit non inventore officiis sequi laborum modi officia, ipsum sit deleniti quo laboriosam voluptatibus accusamus fuga sapiente tenetur excepturi. Quos eius quas facilis doloremque, similique repudiandae laborum nisi tempora dicta possimus iure vitae dolorum magni illum aspernatur expedita laboriosam eaque ut temporibus voluptatibus asperiores hic! Dolorem sunt nulla nobis libero nostrum dolor ad expedita quisquam reiciendis, illum delectus possimus natus accusamus quos consectetur. Et debitis corrupti necessitatibus quibusdam. Ipsam architecto ad magnam.</p>
                     <transition name="appereance">
-                        <p v-if="pShow" id="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aperiam veniam esse cum nam possimus id, sapiente, a harum perferendis atque quidem eius impedit consequuntur vitae vel praesentium, rerum mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci ab dicta ad molestiae repellendus distinctio doloribus modi, rem veritatis similique minima placeat ipsa dignissimos! Repellendus voluptatem aperiam quia labore!</p>
+                        <p v-if="pShow" class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aperiam veniam esse cum nam possimus id, sapiente, a harum perferendis atque quidem eius impedit consequuntur vitae vel praesentium, rerum mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci ab dicta ad molestiae repellendus distinctio doloribus modi, rem veritatis similique minima placeat ipsa dignissimos! Repellendus voluptatem aperiam quia labore!</p>
                     </transition>
                     <span @click="pShow = !pShow">{{ readOrHide() }}</span>
-                    <img src="../images/wave2.png" id="img"></img>
+                    <!-- <img src="../images/wave2.png" id="img"></img> -->
+                    <img-comp></img-comp>
             </section>
         </section>
 
@@ -78,8 +79,7 @@
         <section id="footer">
             <footer>
                 <div id="footerLogo">
-                    <!-- <img src="./images/Logo.png" alt=""> -->
-                    <p><strong>О ОКО</strong></p>
+                    <p><strong>ОКО</strong></p>
                 </div>
                 <div id="footerContacts">
                         <p>
@@ -103,6 +103,7 @@
     import { about } from '../data.js';
     import { videos } from '../data.js';
     import { navlinks } from '../data.js';
+    import Img from './Wave.vue';
     export default {
         name: 'app',
         data () {
@@ -174,6 +175,9 @@
                     }.bind(this), 750);
                 }
             },
+        },
+        components: {
+            imgComp: Img
         }
     }
 </script>
@@ -184,14 +188,6 @@
     $grey: #b0b0b0;
     $creatorgrey: #777777;
     $dark: #454545;
-
-    @keyframes img {
-        from {
-            transform: translateX(0);
-        } to {
-            transform: translateX(-33.3333%);
-        }
-    }
 
     .appereance-enter {
         opacity: 0;
@@ -217,6 +213,7 @@
     #start {
         background-image: url('../images/backgroundHome.png');
         height: 760px;
+        margin-bottom: 100px;
         background-attachment: local;
         background-size: 100% 100%;
         background-repeat: no-repeat;
@@ -248,6 +245,7 @@
             left: 26.3888889%;
             width: 27.0833333%;
             h1 {
+                // font-family: 'Raleway', sans-serif;
                 font-size: 52px;
                 margin-bottom: 25px;
             }
@@ -268,24 +266,17 @@
             header {
                 margin-bottom: 50px;
                 h2 {
-                    font-size: 52px;
+                    font-size: 3.5rem;
                     margin-bottom: 20px;
                 }
                 p {
-                    font-size: 24px;
+                    font-size: 2rem;
                 }
             }
-            #text {
+            .text {
                 column-count: 2;
                 margin: 10px 9.02777778% 30px 9.02777778%;
-            }
-            #img {
-                width: 150%;
-                max-height: 30%;
-                animation-name: img;
-                animation-duration: 5s;
-                animation-iteration-count: infinite;
-                animation-timing-function: linear;
+                font-size: 1.5rem;
             }
             span {
                 font-weight: bold;

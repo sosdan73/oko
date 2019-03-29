@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img id="menuImg" src="../images/navbar_background.png" alt="">
+        <img id="menuImg" src="../images/navbar_background.png" alt="" :style="{height:height}">
         <a href="#" @click="showMenu"><i class="fas fa-bars"></i></a>
         <transition name="anim-menu">
             <div id="menu" v-if="menuClicked" @click="showMenu">
@@ -9,22 +9,19 @@
                 </div>
             </div>
         </transition>
-        <transition name="anim-img">
-            <div @click="showMenu">
-                <router-link to="/" v-if="menuClicked"><i class="fas fa-backward"></i></router-link>
-            </div>
-        </transition>
     </div>
 </template>
 
 <script>
     import { navlinks } from '../data.js';
     import { eventBus } from '../main.js';
+    const mar = (window.innerHeight * 0.33) + 'px';
     export default {
         data() {
             return {
                 links: navlinks,
-                menuClicked: false
+                menuClicked: false,
+                height: mar
             }
         },
         methods: {
@@ -57,6 +54,34 @@
 <style lang="scss" scoped>
     $grey: #b0b0b0;
 
+   @media (min-width: 0px) {
+        #oko {
+            font-size: 3rem;
+            top: 2%;
+        }
+        i {
+            font-size: 2.8rem;
+        }
+    }
+   @media (min-width: 350px) {
+        #oko {
+            font-size: 3rem;
+            top: 2%;
+        }
+        i {
+            font-size: 3.1rem;
+        }
+    }
+    @media (min-width: 450px) {
+        #oko {
+            font-size: 4rem;
+            top: 1%;
+        }
+        i {
+            font-size: 4.6rem;
+        }
+    }
+
     .anim-menu-enter {
         opacity: 0;
     }
@@ -68,30 +93,35 @@
         opacity: 0;
     }
 
-    .anim-img-enter {
+    .okoanim-enter {
         opacity: 0;
     }
-    .anim-img-enter-active {
-        transition: opacity 7500ms;
+    .okoanim-enter-active {
+        transition: opacity 750ms;
     }
-    .anim-img-leave-active {
+    .okoanim-leave-active {
         transition: opacity 750ms;
         opacity: 0;
     }
-
+    
     #menuImg {
         width: 100%;
-        height: 30%;
         position: absolute;
         left: 0;
         top: -12%;
     }
     i {
         color: $grey;
-        font-size: 55px;
         position: absolute;
         left: 5%;
         top: 2%;
+    }
+    #oko {
+        position: absolute;
+        right: 4%;
+        color: $grey;
+        text-decoration: none;
+        font-weight: 100;
     }
     #menu {
         width: 40%;

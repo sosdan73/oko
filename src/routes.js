@@ -4,7 +4,7 @@ import AboutUs from './components/AboutUs.vue';
 import Stories from './components/Stories.vue';
 
 export const routes = [
-    { path: '', component: Home },
+    { path: '/', component: Home },
     { path: '/mobMethodics', component: Methodics },
     { path: '/mobAboutUs', component: AboutUs },
     { path: '/mobStories', component: Stories },

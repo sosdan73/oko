@@ -13,7 +13,11 @@
     export default {
         components: {
             navbar: Navbar,
-            home: Home,
+        },
+        data() {
+            return {
+                pageStatus: '/'
+            }
         }
     }
 </script>

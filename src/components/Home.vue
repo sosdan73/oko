@@ -40,7 +40,8 @@
     }
 
     h1 {
-        font-size: 66px;
+        font-size: 56px;
+        font-weight: 500;
         color: $lightgrey;
         position: absolute;
         top: 20%;
@@ -57,6 +58,8 @@
     #rightPaws {
         position: absolute;
         right: 5%;
-        bottom: 13%;
+        bottom: 11%;
+        max-width: 50%;
+        max-height: 40%;
     }
 </style>
