@@ -26,7 +26,6 @@
                         <p v-if="pShow" class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aperiam veniam esse cum nam possimus id, sapiente, a harum perferendis atque quidem eius impedit consequuntur vitae vel praesentium, rerum mollitia. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid adipisci ab dicta ad molestiae repellendus distinctio doloribus modi, rem veritatis similique minima placeat ipsa dignissimos! Repellendus voluptatem aperiam quia labore!</p>
                     </transition>
                     <span @click="pShow = !pShow">{{ readOrHide() }}</span>
-                    <!-- <img src="../images/wave2.png" id="img"></img> -->
                     <img-comp></img-comp>
             </section>
         </section>
@@ -245,7 +244,6 @@
             left: 26.3888889%;
             width: 27.0833333%;
             h1 {
-                // font-family: 'Raleway', sans-serif;
                 font-size: 52px;
                 margin-bottom: 25px;
             }

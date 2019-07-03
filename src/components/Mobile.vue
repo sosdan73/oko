@@ -12,7 +12,7 @@
     import Home from './Home.vue';
     export default {
         components: {
-            navbar: Navbar,
+            navbar: Navbar
         },
         data() {
             return {
